@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Crear</h1>
 
 <h4>Ceramica</h4>
 <hr />
@@ -12,49 +12,49 @@
 <form asp-action="Create" class="row g-3" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group">
+    <div class="col-md-6">
                 <label asp-for="Nombre" class="control-label"></label>
                 <input asp-for="Nombre" class="form-control" />
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+    <div class="col-md-6">
                 <label asp-for="Tipo" class="control-label"></label>
                 <input asp-for="Tipo" class="form-control" />
                 <span asp-validation-for="Tipo" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+    <div class="col-md-6">
                 <label asp-for="Precio" class="control-label"></label>
                 <input asp-for="Precio" class="form-control" />
                 <span asp-validation-for="Precio" class="text-danger"></span>
             </div>
-            <div class="form-group">
+    <div class="col-md-6">
                 <label asp-for="Color" class="control-label"></label>
                 <input asp-for="Color" class="form-control" />
                 <span asp-validation-for="Color" class="text-danger"></span>
             </div>
-            <div class="form-group">
+    <div class="col-md-5">
                 <label asp-for="Imagen" class="control-label"></label>
                 <input type="file" id="fileImagen" onchange="mostrarVistaPrevia()" accept="image/*" asp-for="Imagen" class="form-control" />
                 <span asp-validation-for="Imagen" class="text-danger"></span>
             </div>
+    <div class="col-md-3">
+        <label asp-for="TamañoId" class="control-label"></label>
+        <select asp-for="TamañoId" class="form-control" asp-items="ViewBag.TamañoId"></select>
+    </div>
             <div class="form-group">
-                <img id="imagenPrevia" src="~/img/default.jpg" alt="Vista previa de la imagen" style="max-width: 200px; max-height: 200px;">
+                <img id="imagenPrevia" src="~/img/default.jpg" alt="Vista previa de la imagen" style="max-width: 200px; max-height: 200px; margin: 2px;">
             </div>
+    
             <div class="form-group">
-                <label asp-for="TamañoId" class="control-label"></label>
-                <select asp-for="TamañoId" class ="form-control" asp-items="ViewBag.TamañoId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+        <input type="submit" value="Crear" class="btn btn-primary btn-lm" />
+        <a class="btn btn-danger btn-lm" asp-action="Index">Cancelar</a>
             </div>
         </form>
     
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{
