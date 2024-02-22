@@ -1,0 +1,89 @@
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+
+namespace PruebaTec02KDSB.Models
+{
+    public partial class PruebaTec02KDSBDBContext : DbContext
+    {
+        public PruebaTec02KDSBDBContext()
+        {
+        }
+
+        public PruebaTec02KDSBDBContext(DbContextOptions<PruebaTec02KDSBDBContext> options)
+            : base(options)
+        {
+        }
+
+        public virtual DbSet<Seramica> Seramicas { get; set; } = null!;
+        public virtual DbSet<Tamaño> Tamaños { get; set; } = null!;
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("server=DESKTOP-U3NM1TE; database=PruebaTec02KDSBDB; integrated security=true;");
+            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Seramica>(entity =>
+            {
+                entity.ToTable("seramica");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id");
+
+                entity.Property(e => e.Color)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("color");
+
+                entity.Property(e => e.Imagen).HasColumnName("imagen");
+
+                entity.Property(e => e.Nombre)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("nombre");
+
+                entity.Property(e => e.Precio)
+                    .HasColumnType("decimal(10, 2)")
+                    .HasColumnName("precio");
+
+                entity.Property(e => e.TamañoId).HasColumnName("tamaño_id");
+
+                entity.Property(e => e.Tipo)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("tipo");
+
+                entity.HasOne(d => d.Tamaño)
+                    .WithMany(p => p.Seramicas)
+                    .HasForeignKey(d => d.TamañoId)
+                    .HasConstraintName("FK__seramica__tamaño__398D8EEE");
+            });
+
+            modelBuilder.Entity<Tamaño>(entity =>
+            {
+                entity.ToTable("tamaño");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id");
+
+                entity.Property(e => e.Medida)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("medida");
+            });
+
+            OnModelCreatingPartial(modelBuilder);
+        }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+    }
+}
