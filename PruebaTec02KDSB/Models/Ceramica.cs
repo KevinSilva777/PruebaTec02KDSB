@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PruebaTec02KDSB.Models
 {
-    public partial class Seramica
+    public partial class Ceramica
     {
         public int Id { get; set; }
         public string Nombre { get; set; } = null!;
@@ -13,6 +13,6 @@ namespace PruebaTec02KDSB.Models
         public byte[]? Imagen { get; set; }
         public int? TamañoId { get; set; }
 
-        public virtual Tamaño? Tamaño { get; set; }
+        public virtual Medida? Tamaño { get; set; }
     }
 }

@@ -16,27 +16,25 @@ namespace PruebaTec02KDSB.Models
         {
         }
 
-        public virtual DbSet<Seramica> Seramicas { get; set; } = null!;
-        public virtual DbSet<Tamaño> Tamaños { get; set; } = null!;
+        public virtual DbSet<Ceramica> Ceramicas { get; set; } = null!;
+        public virtual DbSet<Medida> Medidas { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//                optionsBuilder.UseSqlServer("server=DESKTOP-U3NM1TE; database=PruebaTec02KDSBDB; integrated security=true;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("server=DESKTOP-U3NM1TE; database=PruebaTec02KDSBDB; integrated security=true;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Seramica>(entity =>
+            modelBuilder.Entity<Ceramica>(entity =>
             {
-                entity.ToTable("seramica");
+                entity.ToTable("ceramica");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Color)
                     .HasMaxLength(50)
@@ -62,20 +60,16 @@ namespace PruebaTec02KDSB.Models
                     .HasColumnName("tipo");
 
                 entity.HasOne(d => d.Tamaño)
-                    .WithMany(p => p.Seramicas)
+                    .WithMany(p => p.Ceramicas)
                     .HasForeignKey(d => d.TamañoId)
-                    .HasConstraintName("FK__seramica__tamaño__398D8EEE");
+                    .HasConstraintName("FK__ceramica__tamaño__5070F446");
             });
 
-            modelBuilder.Entity<Tamaño>(entity =>
+            modelBuilder.Entity<Medida>(entity =>
             {
-                entity.ToTable("tamaño");
+                entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
-
-                entity.Property(e => e.Medida)
+                entity.Property(e => e.Medida1)
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("medida");
