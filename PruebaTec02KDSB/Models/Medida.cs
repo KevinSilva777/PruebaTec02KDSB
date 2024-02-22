@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PruebaTec02KDSB.Models
 {
@@ -11,6 +12,9 @@ namespace PruebaTec02KDSB.Models
         }
 
         public int Id { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [RegularExpression("^[a-zA-Z]+$", ErrorMessage = "Solo se permiten letras.")]
+        [Display(Name ="Tamaño")]
         public string Medida1 { get; set; } = null!;
 
         public virtual ICollection<Ceramica> Ceramicas { get; set; }
