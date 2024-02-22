@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using PruebaTec02KDSB.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<PruebaTec02KDSBDBContext>(opcion =>
+opcion.UseSqlServer(builder.Configuration.GetConnectionString("Cnn")));
 
 var app = builder.Build();
 
