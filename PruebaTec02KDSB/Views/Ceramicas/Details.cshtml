@@ -9,7 +9,7 @@
 <div>
     <h4>Ceramica</h4>
     <hr />
-    <dl class="row">
+    <dl class="row alert alert-secondary">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Nombre)
         </dt>
@@ -67,6 +67,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary btn-ls" asp-action="Edit" asp-route-id="@Model?.Id">Editar</a> |
+    <a class="btn btn-danger btn-ls" asp-action="Index">Cancelar</a>
 </div>
