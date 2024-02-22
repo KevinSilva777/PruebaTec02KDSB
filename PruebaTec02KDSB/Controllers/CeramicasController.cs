@@ -47,7 +47,7 @@ namespace PruebaTec02KDSB.Controllers
         // GET: Ceramicas/Create
         public IActionResult Create()
         {
-            ViewData["TamañoId"] = new SelectList(_context.Medidas, "Id", "Id");
+            ViewData["TamañoId"] = new SelectList(_context.Medidas, "Id", "Medida1");
             return View();
         }
 
@@ -56,16 +56,19 @@ namespace PruebaTec02KDSB.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Tipo,Precio,Color,Imagen,TamañoId")] Ceramica ceramica)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Tipo,Precio,Color,Imagen,TamañoId")] Ceramica ceramica, IFormFile imagen)
         {
-            if (ModelState.IsValid)
+            if (imagen != null && imagen.Length > 0)
             {
-                _context.Add(ceramica);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                using (var memoryStream = new MemoryStream())
+                {
+                    await imagen.CopyToAsync(memoryStream);
+                    ceramica.Imagen = memoryStream.ToArray();
+                }
             }
-            ViewData["TamañoId"] = new SelectList(_context.Medidas, "Id", "Id", ceramica.TamañoId);
-            return View(ceramica);
+            _context.Add(ceramica);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Ceramicas/Edit/5

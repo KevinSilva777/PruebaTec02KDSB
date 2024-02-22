@@ -48,11 +48,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Color)
             </td>
+                <td>
+                    @if (item.Imagen != null && item.Imagen.Length > 0)
+                    {
+                        <img class="bloque d mx-auto redondeado" src="data:image/jpg;base64,@(Convert.ToBase64String(item.Imagen))" width="75" height="75">
+                    }
+                </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Imagen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tamaño.Id)
+                @Html.DisplayFor(modelItem => item.Tamaño.Medida1)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
